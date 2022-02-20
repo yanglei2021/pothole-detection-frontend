@@ -5,7 +5,7 @@ $(function () {
         $.ajax({
             type: 'POST',
             // url: '/upload_file',
-            url: 'https://j4sx4hiqwi.execute-api.ap-southeast-2.amazonaws.com/prod', 
+            url: 'https://pa6gu25ecf.execute-api.ap-southeast-2.amazonaws.com/prod', 
             data: form_data,
             contentType: false,
             processData: false,
