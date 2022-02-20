@@ -15,7 +15,7 @@ $(function () {
             console.log(textStatus);
             console.log(jqXHR);
             if(data.status == 'Fail-Img'){
-                $("#ahh").text("Please select a valid image to upload first.");
+                $("#ahh").text("TestHahaha Please select a valid image to upload first.");
                 $("#ahh").removeAttr("hidden");
             }
             else if(data.status == 'Fail-Endpoint'){
