@@ -2,13 +2,20 @@ $(function () {
     $('#submit').click(function () {
         event.preventDefault();
         var form_data = new FormData($('#upload-form')[0]);
-        console.log(typeof form_data)
+        var reader = new FileReader();
+        reader.readAsDataURL(form_data);
+        var fileEncoded = reader.result
+        // console.log(typeof form_data)
         $.ajax({
             type: 'POST',
             // url: '/upload_file',
             url: 'https://pa6gu25ecf.execute-api.ap-southeast-2.amazonaws.com/prod',
             // headers: {"Access-Control-Allow-Origin": "*",},  
-            data: form_data,
+            // data: form_data,
+            headers: { "Content-Type": "application/json" },
+            data: JSON.stringify({
+                data: fileEncoded
+            }),
             contentType: false,
             processData: false,
             dataType: 'json'
