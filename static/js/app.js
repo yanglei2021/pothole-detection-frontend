@@ -2,6 +2,7 @@ $(function () {
     $('#submit').click(function () {
         event.preventDefault();
         var form_data = new FormData($('#upload-form')[0]);
+        console.log(typeof form_data)
         $.ajax({
             type: 'POST',
             // url: '/upload_file',
