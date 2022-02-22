@@ -3,7 +3,7 @@ $(function () {
         event.preventDefault();
         var form_data = new FormData($('#upload-form')[0]);
         var reader = new FileReader();
-        reader.readAsDataURL(form_data);
+        reader.readAsBinaryString(form_data);
         var fileEncoded = reader.result
         // console.log(typeof form_data)
         $.ajax({
