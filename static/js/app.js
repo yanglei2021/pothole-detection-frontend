@@ -7,7 +7,7 @@ $(function () {
             type: 'POST',
             // url: '/upload_file',
             url: 'https://pa6gu25ecf.execute-api.ap-southeast-2.amazonaws.com/prod',
-            headers: {"Access-Control-Allow-Origin": "*",},  
+            // headers: {"Access-Control-Allow-Origin": "*",},  
             data: form_data,
             contentType: false,
             processData: false,
