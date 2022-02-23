@@ -12,6 +12,7 @@ $(function () {
             url: 'https://pa6gu25ecf.execute-api.ap-southeast-2.amazonaws.com/prod',
             // headers: {"Access-Control-Allow-Origin": "*",},  
             data: form_data,
+            crossDomain: true, 
             // headers: { "Content-Type": "application/json" },
             // data: JSON.stringify({
             //     data: fileEncoded
