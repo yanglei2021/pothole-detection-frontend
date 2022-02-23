@@ -2,10 +2,11 @@ $(function () {
     $('#submit').click(function () {
         event.preventDefault();
         var form_data = new FormData($('#upload-form')[0]);
+        console.log($('#upload-form')[0])
         // var reader = new FileReader();
         // reader.readAsBinaryString(form_data);
         // var fileEncoded = reader.result
-        console.log(typeof form_data)
+        // console.log(typeof form_data)
         $.ajax({
             type: 'POST',
             // url: '/upload_file',
