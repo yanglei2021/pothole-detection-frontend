@@ -66,6 +66,30 @@
 <iframe name="sendPhoto" style="width:0px;height:0px;border:0px;"></iframe>
 
 <script>
+    function dataURLToBlob(dataURL) {
+        var BASE64_MARKER = ';base64,';
+        if (dataURL.indexOf(BASE64_MARKER) == -1) {
+            var parts = dataURL.split(',');
+            var contentType = parts[0].split(':')[1];
+            var raw = parts[1];
+            
+            return new Blob([raw], {type: contentType});
+        }
+        else {
+            var parts = dataURL.split(BASE64_MARKER);
+            var contentType = parts[0].split(':')[1];
+            var raw = window.atob(parts[1]);
+            var rawLength = raw.length;
+            
+            var uInt8Array = new Uint8Array(rawLength);
+            
+            for (var i = 0; i < rawLength; ++i) {
+                uInt8Array[i] = raw.charCodeAt(i);
+            }
+            
+            return new Blob([uInt8Array], {type: contentType});
+        }
+    }
     $('#upfile').change(function(){
         if (this.files.length > 0) {
             //Get selected file information
@@ -88,40 +112,48 @@
         console.log("fileSelected");
         console.log(filesSelected);
         var reader = new FileReader();
+        reader.readAsDataURL(filesSelected);
         reader.onload = function(e){
             var imgData = reader.result;
             console.log("img");
             console.log(imgData);
-        }
-        reader.readAsDataURL(filesSelected);
-        console.log("reader.result");
-        console.log(reader.result);
-        $.ajax($(this).attr('action'), {
-            type: 'post',
-            processData: false,
-            contentType: false,
-            // data: formData,
-            data: imgData,
-            success: document.getElementById('compUpload').innerHTML = 'Uploading' //When the transmission is successful
 
-        }).done(function(response){
-            let jsonbody = JSON.parse(response.body);
-                console.log('succes!');  //When there is a response
-                console.log(jsonbody);
-                //Store response file name in local storage
-                // var array = [];
-                // var obj = {
-                //     'Key 1': 'Value 1',
-                //     'Key 2': 'Value 2'
-                // };
-                // array.push(obj);
-                // var setjson = JSON.stringify(obj);
-                // localStorage.setItem('Key', jsonbody.message);
-                document.getElementById('compUpload').innerHTML = 'Upload completed'
-        }).fail(function() {
-                console.log('error!'); //When an error occurs
-            });
-            return false;
+            console.log("reader.result");
+            console.log(reader.result);
+
+            var blob = dataURLToBlob(imgData);
+            var formData = new FormData();
+            formData.append('file', blob);
+
+            $.ajax($(this).attr('action'), {
+                type: 'post',
+                processData: false,
+                contentType: false,
+                data: formData,
+                // data: imgData,
+                success: document.getElementById('compUpload').innerHTML = 'Uploading' //When the transmission is successful
+
+            }).done(function(response){
+                let jsonbody = JSON.parse(response.body);
+                    console.log('succes!');  //When there is a response
+                    console.log(jsonbody);
+                    //Store response file name in local storage
+                    // var array = [];
+                    // var obj = {
+                    //     'Key 1': 'Value 1',
+                    //     'Key 2': 'Value 2'
+                    // };
+                    // array.push(obj);
+                    // var setjson = JSON.stringify(obj);
+                    // localStorage.setItem('Key', jsonbody.message);
+                    document.getElementById('compUpload').innerHTML = 'Upload completed'
+            }).fail(function() {
+                    console.log('error!'); //When an error occurs
+                });
+                return false;
+            }
+        
+        
     });
 </script>
 </body>
