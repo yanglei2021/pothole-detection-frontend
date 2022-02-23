@@ -85,6 +85,7 @@
         // var formData = new FormData($('#imgForm').get(0));
         // var imgData = $('#file').val();
         var filesSelected = document.getElementById("upfile").files[0];
+        console.log("fileSelected");
         console.log(filesSelected);
         var reader = new FileReader();
         reader.onload = function(e){
