@@ -87,12 +87,15 @@
         var filesSelected = document.getElementById("upfile").files[0];
         var reader = new FileReader();
         reader.readAsDataURL(filesSelected);
+        reader.onload = function(e){
+            var imgData = reader.result;
+        }
         $.ajax($(this).attr('action'), {
             type: 'post',
             processData: false,
             contentType: false,
             // data: formData,
-            data: reader.result,
+            data: imgData,
             success: document.getElementById('compUpload').innerHTML = 'Uploading' //When the transmission is successful
 
         }).done(function(response){
