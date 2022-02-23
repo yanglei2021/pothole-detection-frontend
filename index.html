@@ -137,19 +137,20 @@
                 success: document.getElementById('compUpload').innerHTML = 'Uploading' //When the transmission is successful
 
             }).done(function(response){
-                let jsonbody = JSON.parse(response.body);
-                    console.log('succes!');  //When there is a response
-                    console.log(jsonbody);
-                    //Store response file name in local storage
-                    // var array = [];
-                    // var obj = {
-                    //     'Key 1': 'Value 1',
-                    //     'Key 2': 'Value 2'
-                    // };
-                    // array.push(obj);
-                    // var setjson = JSON.stringify(obj);
-                    // localStorage.setItem('Key', jsonbody.message);
-                    document.getElementById('compUpload').innerHTML = 'Upload completed'
+                // let jsonbody = JSON.parse(response.body);
+                console.log('succes!');  //When there is a response
+                // console.log(jsonbody);
+                console.log(response)
+                //Store response file name in local storage
+                // var array = [];
+                // var obj = {
+                //     'Key 1': 'Value 1',
+                //     'Key 2': 'Value 2'
+                // };
+                // array.push(obj);
+                // var setjson = JSON.stringify(obj);
+                // localStorage.setItem('Key', jsonbody.message);
+                document.getElementById('compUpload').innerHTML = 'Upload completed'
             }).fail(function() {
                     console.log('error!'); //When an error occurs
                 });
