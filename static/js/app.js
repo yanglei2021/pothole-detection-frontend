@@ -1,8 +1,11 @@
 $(function () {
     $('#submit').click(function () {
         event.preventDefault();
-        var form_data = new FormData($('#upload-form')[0]);
-        console.log($('#upload-form')[0])
+        var imgData = ('#file').val();
+        console.log("type");
+        console.log(typeof imgData);
+        // var form_data = new FormData($('#upload-form')[0]);
+        // console.log($('#upload-form')[0])
         // var reader = new FileReader();
         // reader.readAsBinaryString(form_data);
         // var fileEncoded = reader.result
