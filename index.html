@@ -85,13 +85,16 @@
         // var formData = new FormData($('#imgForm').get(0));
         // var imgData = $('#file').val();
         var filesSelected = document.getElementById("upfile").files[0];
+        console.log(filesSelected);
         var reader = new FileReader();
         reader.onload = function(e){
             var imgData = reader.result;
+            console.log("img");
+            console.log(imgData);
         }
         reader.readAsDataURL(filesSelected);
         console.log("reader.result");
-        console.log(imgData);
+        console.log(reader.result);
         $.ajax($(this).attr('action'), {
             type: 'post',
             processData: false,
