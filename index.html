@@ -49,64 +49,69 @@
 <form action="https://pa6gu25ecf.execute-api.ap-southeast-2.amazonaws.com/prod" method="post" enctype="multipart/form-data" id="imgForm"  target="sendPhoto">
     <p>
         <label for ="upfile">
-Please select a file
+            Please select a file
             <input type="file" name="fileName" id="upfile" accept="image/*" capture="camera">
         </label>
         <span style="color: #ff0000;" data-mce-style="color: #ff0000;"><div><img id="thumbnail" src=""></div></span>
     </p>
     <p>
         <label for="upload">
-upload
+            upload
             <button type="submit" action="" name="save" id="upload" >upload</button>
         </label>
     </p>
     <p id="compUpload"></p>
 </form>
-<iframe name="sendPhoto" style="width:0px;height:0px;border:0px;"></iframe>
-<script>
-$('#upfile').change(function(){
-if (this.files.length > 0) {
-//Get selected file information
-var file = this.files[0];
-//Store the file data encoded as a data URL in the result property of reader
-var reader = new FileReader();
-reader.readAsDataURL(file);
-reader.onload = function() {
-$('#thumbnail').attr('src', reader.result );
-}
-}
-});
 
-//Upload image
+<iframe name="sendPhoto" style="width:0px;height:0px;border:0px;"></iframe>
+
+<script>
+    $('#upfile').change(function(){
+        if (this.files.length > 0) {
+            //Get selected file information
+            var file = this.files[0];
+            //Store the file data encoded as a data URL in the result property of reader
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function() {
+                $('#thumbnail').attr('src', reader.result);
+            }
+        }
+    });
+
+    //Upload image
     $('#imgForm').on('submit', function(e) {
         e.preventDefault();
-        var formData = new FormData($('#imgForm').get(0));
+        // var formData = new FormData($('#imgForm').get(0));
+        var imgData = $('#file').val();
+        var reader = new FileReader();
+        reader.readAsDataURL(imgData);
         $.ajax($(this).attr('action'), {
             type: 'post',
             processData: false,
             contentType: false,
-            data: formData,
+            // data: formData,
+            data: reader.result,
             success: document.getElementById('compUpload').innerHTML = 'Uploading' //When the transmission is successful
 
-    }).done(function(response){
-        let jsonbody = JSON.parse(response.body);
-            console.log('succes!');  //When there is a response
-            console.log(jsonbody);
-            //Store response file name in local storage
-            // var array = [];
-            // var obj = {
-            //     'Key 1': 'Value 1',
-            //     'Key 2': 'Value 2'
-            // };
-            // array.push(obj);
-            // var setjson = JSON.stringify(obj);
-            // localStorage.setItem('Key', jsonbody.message);
-            document.getElementById('compUpload').innerHTML = 'Upload completed'
-
-    }).fail(function() {
-            console.log('error!'); //When an error occurs
-        });
-        return false;
+        }).done(function(response){
+            let jsonbody = JSON.parse(response.body);
+                console.log('succes!');  //When there is a response
+                console.log(jsonbody);
+                //Store response file name in local storage
+                // var array = [];
+                // var obj = {
+                //     'Key 1': 'Value 1',
+                //     'Key 2': 'Value 2'
+                // };
+                // array.push(obj);
+                // var setjson = JSON.stringify(obj);
+                // localStorage.setItem('Key', jsonbody.message);
+                document.getElementById('compUpload').innerHTML = 'Upload completed'
+        }).fail(function() {
+                console.log('error!'); //When an error occurs
+            });
+            return false;
     });
 </script>
 </body>
