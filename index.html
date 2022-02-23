@@ -84,7 +84,7 @@
         e.preventDefault();
         // var formData = new FormData($('#imgForm').get(0));
         // var imgData = $('#file').val();
-        var filesSelected = document.getElementById("upfile").files;
+        var filesSelected = document.getElementById("upfile").files[0];
         var reader = new FileReader();
         reader.readAsDataURL(filesSelected);
         $.ajax($(this).attr('action'), {
