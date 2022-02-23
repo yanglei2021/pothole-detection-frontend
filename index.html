@@ -1,96 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<!-- {% extends "base.html" %}
-{% set active_page = "home" %}
-
-
-{% block body %} -->
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pothole Detector</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
-        integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-</head>
-<script>
-    function showImgFunc(selectObject) {
-    // echo("THIS IS showImgFunc")
-    const [file] = selectObject.files
-        if (file) {
-            showimg.src = URL.createObjectURL(file)
+    <!--jquery library is not fixed-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
+    <title>Title</title>
+    <style>
+        label > input {
+            display:none; /*Disable file button style*/
         }
-}
-</script>
+        label > button {
+            display:none; /*Disable button style*/
+        }
 
+        label {
+            display: inline-block;
+            padding: 0.5em 1em;
+            text-decoration: none;
+            background: #fd9535;/*Button color*/
+            color: #FFF;
+            border-bottom: solid 4px #627295;
+            border-radius: 3px;
+        }
+        button{
+            display: inline-block;
+            padding: 0.5em 1em;
+            text-decoration: none;
+            background: #fd9535;/*Button color*/
+            color: #FFF;
+            border-bottom: solid 4px #627295;
+            border-radius: 3px;
+        }
+        label:active {
+            /*When you press the button*/
+            -webkit-transform: translateY(4px);
+            transform: translateY(4px);/*Move down*/
+            border-bottom: none;/*Erase the line*/
+        }
+        button:active{
+            /*When you press the button*/
+            -webkit-transform: translateY(4px);
+            transform: translateY(4px);/*Move down*/
+            border-bottom: none;/*Erase the line*/
+        }
+    </style>
+</head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand">
-                <img src="static/brand/arq.png" alt="" width="auto" height="24" class="d-inline-block align-text-top">
-            </a>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="{{'nav-link active' if active_page == 'home' else 'nav-link'}}" aria-current="page"
-                            aria-current="page" href="/">Home</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <div class="d-flex flex-column align-items-center">
-        <div class="d-flex flex-column mt-1 justify-content-center align-items-center">
-            <h1 id="title" class="display-1">Find Potholes</h1>
-        </div>
-    </div>
-    <div class="d-flex flex-column mb-5 vh-100 align-items-center" style="background-image: url(static/img/pothole-silhouette.png); background-repeat: no-repeat; background-position: center; background-color: f1faee; ">
-        <!-- <div class="d-flex flex-column justify-content-center align-items-center">
-            <h2 class="display-2" id="result"></h2>
-            <div class="mt-5 mb-5 justify-content-center align-items-center"><img id="picture" style="max-width:400px;width:100%;border: 1px solid" src="data:image/jpeg;base64,{{ img_data }}" hidden></div>
-            <h5 class="display-5" id="confidence"></h3>
-        </div> -->
-        <div class="d-flex flex-column mt-5 mb-5 justify-content-center align-items-center">
-            <div class="d-flex flex-column h-100"><br/><br/><br/></div>
-            <!-- <h2 id="upload-title" class="display-2">Upload</h1> -->
-            <!-- <p>{{test}}</p> -->
-            <!-- <div class="alert alert-danger alert-dismissible fade show" role="alert" id="ahh" hidden>
-                <div>
-                    Please select a valid image to upload first.
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            </div> -->
-            <!-- <form runat="server">
-                <input accept="image/*" type='file' id="imgInp" />
-                <img id="blah" src="#" alt="your image" />
-              </form> -->
+<form action="https://pa6gu25ecf.execute-api.ap-southeast-2.amazonaws.com/prod" method="post" enctype="multipart/form-data" id="imgForm"  target="sendPhoto">
+    <p>
+        <label for ="upfile">
+Please select a file
+            <input type="file" name="fileName" id="upfile" accept="image/*" capture="camera">
+        </label>
+        <span style="color: #ff0000;" data-mce-style="color: #ff0000;"><div><img id="thumbnail" src=""></div></span>
+    </p>
+    <p>
+        <label for="upload">
+upload
+            <button type="submit" action="" name="save" id="upload" >upload</button>
+        </label>
+    </p>
+    <p id="compUpload"></p>
+</form>
+<iframe name="sendPhoto" style="width:0px;height:0px;border:0px;"></iframe>
+<script>
+$('#upfile').change(function(){
+if (this.files.length > 0) {
+//Get selected file information
+var file = this.files[0];
+//Store the file data encoded as a data URL in the result property of reader
+var reader = new FileReader();
+reader.readAsDataURL(file);
+reader.onload = function() {
+$('#thumbnail').attr('src', reader.result );
+}
+}
+});
 
-            <!-- <form runat="server" id="upload-form" method="POST" enctype="multipart/form-data"> -->
-                <!-- <label class="btn btn-primary btn-lg" for="upload-file-btn" id="blah"> -->
-            <form id="upload-form" method="POST" enctype="multipart/form-data">
-                <label class="btn btn-primary btn-lg" for="imgInp" id="blah">
-                <input id="imgInp"  accept="image/*" type='file' class="d-none" name="file" onchange='showImgFunc(this)'>
-                <!-- <input id="upload-file-btn" accept="image/*" type='file' id="imgInp" class="d-none" name="file"> -->
-                Browse
-                </label>
-                <button class="btn btn-success btn-lg" id="submit" type="button">Submit</button>
-            </form>
-            <div>
-                <img id="showimg" src="#" alt="your image" />
-            </div>
-        </div>
-    
-    </div>
-</div>
-    
-<script src="static/js/jquery-3.6.0.min.js"></script>
-<script src="static/js/app.js"></script>
+//Upload image
+    $('#imgForm').on('submit', function(e) {
+        e.preventDefault();
+        var formData = new FormData($('#imgForm').get(0));
+        $.ajax($(this).attr('action'), {
+            type: 'post',
+            processData: false,
+            contentType: false,
+            data: formData,
+            success: document.getElementById('compUpload').innerHTML = 'Uploading' //When the transmission is successful
+
+    }).done(function(response){
+        let jsonbody = JSON.parse(response.body);
+            console.log('succes!');  //When there is a response
+            console.log(jsonbody);
+            //Store response file name in local storage
+            // var array = [];
+            // var obj = {
+            //     'Key 1': 'Value 1',
+            //     'Key 2': 'Value 2'
+            // };
+            // array.push(obj);
+            // var setjson = JSON.stringify(obj);
+            // localStorage.setItem('Key', jsonbody.message);
+            document.getElementById('compUpload').innerHTML = 'Upload completed'
+
+    }).fail(function() {
+            console.log('error!'); //When an error occurs
+        });
+        return false;
+    });
+</script>
 </body>
-
-<!-- {% endblock %} -->
-
 </html>

@@ -9,6 +9,9 @@ $(function () {
             reader.readAsDataURL(imgData);
         }
         base64Img = reader.result;
+        console.log("base64Img");
+        console.log(base64Img);
+        var data = {img: imgData};
         // var form_data = new FormData($('#upload-form')[0]);
         // console.log($('#upload-form')[0])
         // var reader = new FileReader();
@@ -20,15 +23,17 @@ $(function () {
             // url: '/upload_file',
             url: 'https://pa6gu25ecf.execute-api.ap-southeast-2.amazonaws.com/prod',
             // headers: {"Access-Control-Allow-Origin": "*",},  
-            data: base64Img,
+            data: JSON.stringify(data),
             crossDomain: true, 
             // headers: { "Content-Type": "application/json" },
             // data: JSON.stringify({
             //     data: fileEncoded
             // }),
-            contentType: false,
-            processData: false,
-            dataType: 'json'
+            // contentType: false,
+            // processData: false,
+            dataType: 'json',
+            contentType: "application/json; charset=utf-8",
+
         }).done(function (data, textStatus, jqXHR) {
             console.log(data);
             console.log(textStatus);
