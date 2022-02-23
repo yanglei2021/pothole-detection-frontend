@@ -1,7 +1,7 @@
 $(function () {
     $('#submit').click(function () {
         event.preventDefault();
-        var imgData = ('#file').val();
+        var imgData = $('#file').val();
         console.log("type");
         console.log(typeof imgData);
         // var form_data = new FormData($('#upload-form')[0]);
