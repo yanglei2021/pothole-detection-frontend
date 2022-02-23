@@ -109,19 +109,21 @@
         // var formData = new FormData($('#imgForm').get(0));
         // var imgData = $('#file').val();
         var filesSelected = document.getElementById("upfile").files[0];
-        console.log("fileSelected");
-        console.log(filesSelected);
+        // console.log("fileSelected");
+        // console.log(filesSelected);
         var reader = new FileReader();
         reader.readAsDataURL(filesSelected);
         reader.onload = function(e){
             var imgData = reader.result;
-            console.log("img");
-            console.log(imgData);
+            // console.log("img");
+            // console.log(imgData);
 
-            console.log("reader.result");
-            console.log(reader.result);
+            // console.log("reader.result");
+            // console.log(reader.result);
 
             var blob = dataURLToBlob(imgData);
+            console.log("blob");
+            console.log(blob);
             var formData = new FormData();
             formData.append('file', blob);
 
