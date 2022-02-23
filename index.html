@@ -83,9 +83,10 @@
     $('#imgForm').on('submit', function(e) {
         e.preventDefault();
         // var formData = new FormData($('#imgForm').get(0));
-        var imgData = $('#file').val();
+        // var imgData = $('#file').val();
+        var filesSelected = document.getElementById("upfile").files;
         var reader = new FileReader();
-        reader.readAsDataURL(imgData);
+        reader.readAsDataURL(filesSelected);
         $.ajax($(this).attr('action'), {
             type: 'post',
             processData: false,
