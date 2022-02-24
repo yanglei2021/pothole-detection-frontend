@@ -148,6 +148,7 @@
 
             }).done(function(data, textStatus, jqJHR){
                 console.log(data);
+                console.log(typeof data)
                 console.log(textStatus);
                 console.log(jqJHR);
                 // let jsonbody = JSON.parse(response.body);
@@ -165,7 +166,8 @@
                 // array.push(obj);
                 // var setjson = JSON.stringify(obj);
                 // localStorage.setItem('Key', jsonbody.message);
-                document.getElementById('compUpload').innerHTML = 'Upload completed'
+                // document.getElementById('compUpload').innerHTML = 'Upload completed'
+                document.getElementById('compUpload').innerHTML = data
             }).fail(function(data) {
                     console.log('error!'); //When an error occurs
                 });
