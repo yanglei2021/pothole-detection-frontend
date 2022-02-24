@@ -127,8 +127,8 @@
             // console.log(reader.result);
 
             var blob = dataURLToBlob(imgData);
-            console.log("blob");
-            console.log(blob);
+            // console.log("blob");
+            // console.log(blob);
             // var formData = new FormData();
             // formData.append('file', blob);
 
@@ -138,10 +138,10 @@
                 processData: false,
                 // contentType: 'application/octet-stream',
                 // data: blob,
-                // contentType: false,
+                contentType: false,
                 // data: {imgData},
-                contentType: 'application/json',
-                data: {"file": imgData},
+                // contentType: 'application/json',
+                data: imgData,
                 // data: formData, 
                 success: document.getElementById('compUpload').innerHTML = 'Uploading' //When the transmission is successful
 
