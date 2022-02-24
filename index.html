@@ -88,6 +88,7 @@
         return new Blob([uInt8Array], {type: contentType});
         
     }
+    // Display uploaded image
     $('#upfile').change(function(){
         if (this.files.length > 0) {
             //Get selected file information
@@ -136,11 +137,14 @@
                 // data: formData, 
                 success: document.getElementById('compUpload').innerHTML = 'Uploading' //When the transmission is successful
 
-            }).done(function(response){
+            }).done(function(data, textStatus, jqJHR){
+                console.log(data);
+                console.log(textStatus);
+                console.log(jqJHR);
                 // let jsonbody = JSON.parse(response.body);
                 console.log('succes!');  //When there is a response
                 // console.log(jsonbody);
-                console.log(response)
+                // console.log(response)
                 //Store response file name in local storage
                 // var array = [];
                 // var obj = {
@@ -151,12 +155,11 @@
                 // var setjson = JSON.stringify(obj);
                 // localStorage.setItem('Key', jsonbody.message);
                 document.getElementById('compUpload').innerHTML = 'Upload completed'
-            }).fail(function() {
+            }).fail(function(data) {
                     console.log('error!'); //When an error occurs
                 });
-                return false;
-            }
-        
+                // return false;
+        }
         
     });
 </script>
