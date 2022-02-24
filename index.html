@@ -105,9 +105,9 @@
     //Upload image
     $('#imgForm').on('submit', function(e) {
         e.preventDefault();
-        var formData = new FormData($('#imgForm').get(0));
-        console.log("form data\n");
-        console.log(formData);
+        // var formData = new FormData($('#imgForm').get(0));
+        // console.log("form data\n");
+        // console.log(formData);
 
         // var imgData = $('#file').val();
         var filesSelected = document.getElementById("upfile").files[0];
@@ -119,6 +119,9 @@
             var imgData = reader.result;
             console.log("img");
             console.log(imgData);
+
+            // console.log("form data\n");
+            // console.log(formData);
 
             // console.log("reader.result");
             // console.log(reader.result);
@@ -135,9 +138,11 @@
                 processData: false,
                 // contentType: 'application/octet-stream',
                 // data: blob,
-                contentType: false,
-                // data: imgData,
-                data: formData, 
+                // contentType: false,
+                // data: {imgData},
+                contentType: 'application/json',
+                data: {"file": imgData},
+                // data: formData, 
                 success: document.getElementById('compUpload').innerHTML = 'Uploading' //When the transmission is successful
 
             }).done(function(data, textStatus, jqJHR){
