@@ -52,7 +52,13 @@
             Please select a file
             <input type="file" name="fileName" id="upfile" accept="image/*" capture="camera">
         </label>
-        <span style="color: #ff0000;" data-mce-style="color: #ff0000;"><div><img id="thumbnail" src=""></div></span>
+        <span style="color: #ff0000;" data-mce-style="color: #ff0000;">
+            <div><img id="thumbnail" src=""></div>
+        </span>
+        <p>Result:</p>
+        <canvas id="resultImg" width="240" height="297" style="border:1px solid #d3d3d3;">
+            Your browser does not support the HTML5 canvas tag. 
+        </canvas>
     </p>
     <p>
         <label for="upload">
@@ -61,7 +67,7 @@
         </label>
     </p>
     <p id="compUpload"></p>
-    <div class="boximg"><img id="boximg" src=""></div>
+    <!-- <div class="boximg"><img id="boximg" src=""></div> -->
 </form>
 
 <iframe name="sendPhoto" style="width:0px;height:0px;border:0px;"></iframe>
@@ -157,6 +163,12 @@
                 // console.log(jqJHR);
                 // let jsonbody = JSON.parse(response.body);
                 console.log('succes!');  //When there is a response
+
+                var canvas = document.getElementById("resultImg");
+                var ctx = canvas.getContext("2d");
+                var img = document.getElementById("thumbnail");
+                ctx.drawImage(img, 10, 10);
+               
 
                 // $('.boximg').html('<img src="data:image/png;base64,' + data + '" />');
                 // console.log(jsonbody);
