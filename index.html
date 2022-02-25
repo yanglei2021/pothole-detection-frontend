@@ -56,7 +56,7 @@
             <div><img id="thumbnail" src=""></div>
         </span>
         <p>Result:</p>
-        <canvas id="resultImg" width="240" height="297" style="border:1px solid #d3d3d3;">
+        <canvas id="resultImg" width="240" height="297" style="border:1px solid #d3d3d3;" hidden>
             Your browser does not support the HTML5 canvas tag. 
         </canvas>
     </p>
@@ -168,6 +168,7 @@
                 var ctx = canvas.getContext("2d");
                 var img = document.getElementById("thumbnail");
                 ctx.drawImage(img, 10, 10);
+                $("#resultImg").removeAttr("hidden");
                
 
                 // $('.boximg').html('<img src="data:image/png;base64,' + data + '" />');
