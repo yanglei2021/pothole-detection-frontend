@@ -148,9 +148,13 @@
 
             }).done(function(data, textStatus, jqJHR){
                 console.log(data);
-                console.log(typeof data)
-                console.log(textStatus);
-                console.log(jqJHR);
+                console.log(typeof data);
+                console.log(data["boxes"]);
+                console.log(typeof data["boxes"]);
+                console.log(typeof data["scores"]);
+
+                // console.log(textStatus);
+                // console.log(jqJHR);
                 // let jsonbody = JSON.parse(response.body);
                 console.log('succes!');  //When there is a response
 
